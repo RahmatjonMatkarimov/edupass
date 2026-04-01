@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ruxsatnoma-generator.uz/sitemap.xml
+Sitemap: https://edupass.rahmatjonmatkarimov.uz/sitemap.xml

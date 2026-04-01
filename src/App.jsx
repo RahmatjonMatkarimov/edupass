@@ -36,7 +36,7 @@ function App() {
       "@type": "Person",
       "name": "Rahmatjon Matkarimov"
     },
-    "url": "https://edupass.uz/"
+    "url": "https://edupass.rahmatjonmatkarimov.uz/"
   };
 
   return (
