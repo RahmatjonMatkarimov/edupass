@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ruxsatnoma-generator.uz/sitemap.xml
