@@ -20,7 +20,7 @@ const DEFAULT_DAYS = [
 
 const INITIAL_STUDENT = {
   id: Date.now(),
-  docNumber: '1',
+  docNumber: '',
   date: new Date().toLocaleDateString(),
   studentClass: '11-A',
   studentName: 'Matkarimov Rahmatjon',
@@ -28,11 +28,11 @@ const INITIAL_STUDENT = {
   directorName: 'U.Yusupov',
   photoUrl: null,
   schedule: {
-    Dushanba: { center: 'Najot talim', time: '14:00' },
+    Dushanba: { center: '', time: '' },
     Seshanba: { center: '', time: '' },
-    Chorshanba: { center: 'Najot talim', time: '14:00' },
+    Chorshanba: { center: '', time: '' },
     Payshanba: { center: '', time: '' },
-    Juma: { center: 'Najot talim', time: '14:00' },
+    Juma: { center: '', time: '' },
     Shanba: { center: '', time: '' },
   }
 };
