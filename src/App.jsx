@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import LandingPage from './pages/LandingPage';
@@ -24,6 +24,16 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
   // Structured Data (JSON-LD) for SEO
   const jsonLd = {
     "@context": "https://schema.org",
@@ -50,8 +60,8 @@ function App() {
         </Helmet>
 
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/generator" element={<Generator />} />
+          <Route path="/" element={<LandingPage theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/generator" element={<Generator theme={theme} toggleTheme={toggleTheme} />} />
         </Routes>
       </div>
     </Router>

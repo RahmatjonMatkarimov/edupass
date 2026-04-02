@@ -4,7 +4,7 @@ import { IconPlus, IconCheck, IconPrinter, IconFileDescription } from '@tabler/i
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-function LandingPage() {
+function LandingPage({ theme, toggleTheme }) {
   return (
     <div className="landing-page">
       <Helmet>
@@ -12,7 +12,7 @@ function LandingPage() {
         <meta name="description" content="EduPass - O'quv markazlari va darslar uchun zamonaviy elektron ruxsatnomalar yaratish xizmati. Vaqtingizni tejang!" />
       </Helmet>
       
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <section className="hero">
         <div className="hero-grid">

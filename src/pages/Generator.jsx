@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { handleDownloadPdf, handlePrintPdf } from '../utils/pdfGenerator';
 import { 
   IconDownload, IconUpload, IconFileDescription, IconPrinter, 
-  IconPlus, IconTrash 
+  IconPlus, IconTrash, IconSun, IconMoon
 } from '@tabler/icons-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -37,7 +37,7 @@ const INITIAL_STUDENT = {
   }
 };
 
-function Generator() {
+function Generator({ theme, toggleTheme }) {
   const [students, setStudents] = useState([INITIAL_STUDENT]);
 
   const formatPhone = (val) => {
@@ -124,6 +124,26 @@ function Generator() {
             </Link>
           </div>
           <div className="toolbar-actions">
+            <button 
+              className="theme-toggle" 
+              onClick={toggleTheme}
+              aria-label="Mavzuni o'zgartirish"
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                cursor: 'pointer',
+                color: 'var(--text-main)',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '8px',
+                borderRadius: '12px',
+                transition: 'background 0.2s',
+                border: '1px solid var(--border-color)'
+              }}
+            >
+              {theme === 'dark' ? <IconSun size={18} /> : <IconMoon size={18} />}
+            </button>
+            <div className="action-divider"></div>
             <button className="btn-secondary" onClick={addStudent} aria-label="Yangi o'quvchi qo'shish">
               <IconPlus size={18} />
               <span className="btn-text">Sinfga o'quvchi qo'shish</span>
