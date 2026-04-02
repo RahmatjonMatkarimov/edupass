@@ -213,31 +213,6 @@ function Generator({ theme, toggleTheme }) {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor={`docNumber-${student.id}`}>Hujjat raqami (№)</label>
-                    <input 
-                      id={`docNumber-${student.id}`}
-                      type="text" 
-                      className="form-control" 
-                      name="docNumber" 
-                      value={student.docNumber} 
-                      onChange={(e) => handleInputChange(student.id, e)} 
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor={`date-${student.id}`}>Sana</label>
-                    <input 
-                      id={`date-${student.id}`}
-                      type="text" 
-                      className="form-control" 
-                      name="date" 
-                      value={student.date} 
-                      onChange={(e) => handleInputChange(student.id, e)} 
-                    />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
                     <label htmlFor={`class-${student.id}`}>Sinf/Guruh</label>
                     <input 
                       id={`class-${student.id}`}
