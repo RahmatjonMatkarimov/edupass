@@ -21,7 +21,7 @@ const DEFAULT_DAYS = [
 const INITIAL_STUDENT = {
   id: Date.now(),
   docNumber: '',
-  date: new Date().toLocaleDateString(),
+  date: '',
   studentClass: '11-A',
   studentName: 'Matkarimov Rahmatjon',
   phoneNumber: '+998 91 999 98 83',
@@ -91,7 +91,7 @@ function Generator({ theme, toggleTheme }) {
   };
 
   const addStudent = () => {
-    setStudents(prev => [...prev, { ...INITIAL_STUDENT, id: Date.now(), docNumber: (prev.length + 1).toString() }]);
+    setStudents(prev => [...prev, { ...INITIAL_STUDENT, id: Date.now(), docNumber: '' }]);
   };
 
   const removeStudent = (id) => {
@@ -240,17 +240,6 @@ function Generator({ theme, toggleTheme }) {
                       className="form-control" 
                       name="phoneNumber" 
                       value={student.phoneNumber} 
-                      onChange={(e) => handleInputChange(student.id, e)} 
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor={`director-${student.id}`}>Maktab direktori</label>
-                    <input 
-                      id={`director-${student.id}`}
-                      type="text" 
-                      className="form-control" 
-                      name="directorName" 
-                      value={student.directorName} 
                       onChange={(e) => handleInputChange(student.id, e)} 
                     />
                   </div>
