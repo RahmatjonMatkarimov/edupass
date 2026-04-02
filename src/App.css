@@ -143,7 +143,7 @@ body {
   .desktop-toggle {
     display: none !important;
   }
-  
+
   .mobile-actions {
     display: flex !important;
   }
@@ -175,7 +175,7 @@ body {
 /* Hero Section - Stunning Gradient & Layout */
 .hero {
   padding: 140px 8% 100px;
-  background: 
+  background:
     radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
     linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg) 100%);
@@ -279,9 +279,17 @@ body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .btn-lg {
@@ -560,7 +568,8 @@ body {
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  gap: 60px; /* Space between multiple permits */
+  gap: 60px;
+  /* Space between multiple permits */
 }
 
 /* Success Button Style */
@@ -615,7 +624,6 @@ body {
 .form-control:focus {
   outline: 0;
   border-color: var(--primary);
-  background: white;
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
 }
 
@@ -780,7 +788,8 @@ body {
   border-radius: 8px;
   display: flex;
   justify-content: center;
-  align-items: center; /* Vertical alignment */
+  align-items: center;
+  /* Vertical alignment */
   padding: 40px;
 }
 
@@ -788,10 +797,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Important if only one item */
+  justify-content: center;
+  /* Important if only one item */
   gap: 30px;
   min-height: min-content;
-  margin: auto; /* Bulleproof centering in flex containers */
+  margin: auto;
+  /* Bulleproof centering in flex containers */
 }
 
 /* The actual PDF Document Layout - RESTORED ORIGINAL STYLE */
@@ -1035,9 +1046,11 @@ body {
     margin: 0;
   }
 }
+
 /* Mobile Responsiveness Improvements */
 
 @media (max-width: 768px) {
+
   /* Navbar Burger Menu Styles */
   .mobile-menu-btn {
     display: block;
@@ -1108,7 +1121,7 @@ body {
     justify-content: space-between !important;
     gap: 0.5rem !important;
   }
-  
+
   .toolbar-actions button {
     padding: 0.5rem 0.75rem !important;
     font-size: 0.8rem !important;
@@ -1146,7 +1159,7 @@ body {
     transform: scale(0.4) !important;
     margin-bottom: -180px !important;
   }
-  
+
   .preview-shadow-container {
     gap: 0 !important;
   }
@@ -1171,7 +1184,7 @@ body {
     transform: scale(0.3) !important;
     margin-bottom: -220px !important;
   }
-  
+
   /* Footer */
   .footer-content {
     grid-template-columns: 1fr !important;
@@ -1190,34 +1203,35 @@ body {
   .hero h2 {
     font-size: 1.5rem !important;
   }
-  
+
   .hero p {
     font-size: 0.9rem !important;
   }
-  
+
   .landing-nav {
     padding: 1rem 2% !important;
   }
-  
+
   .nav-links {
     gap: 0.75rem !important;
   }
-  
+
   .toolbar-left h2 {
     font-size: 0.9rem !important;
   }
-  
+
   .toolbar-actions button {
     padding: 0.4rem 0.5rem !important;
     font-size: 0.7rem !important;
   }
-  
+
   .document-a4 {
     transform: scale(0.25) !important;
     margin-bottom: -240px !important;
   }
-  
-  .form-column, .preview-column {
+
+  .form-column,
+  .preview-column {
     padding: 1rem 3% !important;
   }
 }
@@ -1228,7 +1242,7 @@ body {
   .generator-toolbar .btn-text {
     display: none;
   }
-  
+
   .generator-toolbar button {
     justify-content: center;
     padding: 10px !important;
