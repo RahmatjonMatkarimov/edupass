@@ -313,65 +313,75 @@ function Generator({ theme, toggleTheme }) {
             </div>
             <div className="preview-shadow-container">
               <div id="preview-content" className="preview-content-list">
-                {students.map((student) => (
-                  <div key={student.id} className="document-a4">
-                    <div className="doc-top-section">
-                      <div className="doc-top-left">
-                        <span className="bold-label">№</span>
-                        <span className="doc-input-line short-line">{student.docNumber}</span>
-                        <span className="bold-label ml-30">Sana</span>
-                        <span className="doc-input-line long-line">{student.date}</span>
+                {students.map((student) => {
+                  const RenderPermit = () => (
+                    <div className="document-a4">
+                      <div className="doc-top-section">
+                        <div className="doc-top-left">
+                          <span className="bold-label">№</span>
+                          <span className="doc-input-line short-line">{student.docNumber}</span>
+                          <span className="bold-label ml-30">Sana</span>
+                          <span className="doc-input-line long-line">{student.date}</span>
+                        </div>
+
+                        <div className="doc-titles">
+                          <div className="doc-subtitle">Sertifikat va qo'shimcha tayyorgarlik uchun</div>
+                          <div className="doc-main-title">RUXSATNOMA</div>
+                          <div className="doc-class">{student.studentClass}</div>
+                        </div>
+
+                        <div className="doc-photo">
+                          {student.photoUrl ? (
+                            <img src={student.photoUrl} alt={`${student.studentName} rasmi`} />
+                          ) : null}
+                        </div>
                       </div>
 
-                      <div className="doc-titles">
-                        <div className="doc-subtitle">Sertifikat va qo'shimcha tayyorgarlik uchun</div>
-                        <div className="doc-main-title">RUXSATNOMA.</div>
-                        <div className="doc-class">{student.studentClass}</div>
+                      <table className="doc-table">
+                        <thead>
+                          <tr>
+                            <th>Hafta kunlari</th>
+                            {DEFAULT_DAYS.map(day => <th key={day}>{day}</th>)}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="row-title">O'quv markazi</td>
+                            {DEFAULT_DAYS.map(day => <td key={`center-${day}`}>{student.schedule[day].center}</td>)}
+                          </tr>
+                          <tr>
+                            <td className="doc-name-cell">
+                              {student.studentName.split(' ').map((word, idx) => (
+                                <span key={idx}>
+                                  <span className="name-text">{word}</span>
+                                  {idx !== student.studentName.split(' ').length - 1 && ' '}
+                                </span>
+                              ))}
+                            </td>
+                            {DEFAULT_DAYS.map(day => <td key={`time-${day}`}>{student.schedule[day].time}</td>)}
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div className="doc-phone">
+                        {student.phoneNumber}
                       </div>
 
-                      <div className="doc-photo">
-                        {student.photoUrl ? (
-                          <img src={student.photoUrl} alt={`${student.studentName} rasmi`} />
-                        ) : null}
+                      <div className="doc-footer">
+                        <div>Maktab direktori:</div>
+                        <div>{student.directorName}</div>
                       </div>
                     </div>
+                  );
 
-                    <table className="doc-table">
-                      <thead>
-                        <tr>
-                          <th>Hafta kunlari</th>
-                          {DEFAULT_DAYS.map(day => <th key={day}>{day}</th>)}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="row-title">O'quv markazi</td>
-                          {DEFAULT_DAYS.map(day => <td key={`center-${day}`}>{student.schedule[day].center}</td>)}
-                        </tr>
-                        <tr>
-                          <td className="doc-name-cell">
-                            {student.studentName.split(' ').map((word, idx) => (
-                              <span key={idx}>
-                                <span className="name-text">{word}</span>
-                                {idx !== student.studentName.split(' ').length - 1 && ' '}
-                              </span>
-                            ))}
-                          </td>
-                          {DEFAULT_DAYS.map(day => <td key={`time-${day}`}>{student.schedule[day].time}</td>)}
-                        </tr>
-                      </tbody>
-                    </table>
-
-                    <div className="doc-phone">
-                      {student.phoneNumber}
+                  return (
+                    <div key={student.id} className="page-a4">
+                      <RenderPermit />
+                      <div className="cut-line"></div>
+                      <RenderPermit />
                     </div>
-
-                    <div className="doc-footer">
-                      <div>Maktab direktori:</div>
-                      <div>{student.directorName}</div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </aside>

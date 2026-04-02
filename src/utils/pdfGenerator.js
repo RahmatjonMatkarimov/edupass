@@ -5,36 +5,42 @@ export const handleDownloadPdf = async (elementId, fileName = 'ruxsatnomalar.pdf
   const element = document.getElementById(elementId);
   if (!element) return;
   
+  const pages = element.querySelectorAll('.page-a4');
+  if (pages.length === 0) return;
+
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
+
   try {
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-    });
-    
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4'
-    });
-    
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-    // Calculate how many pages we need
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    let heightLeft = pdfHeight;
-    let position = 0;
-
-    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-    heightLeft -= pageHeight;
-
-    while (heightLeft >= 0) {
-      position = heightLeft - pdfHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-      heightLeft -= pageHeight;
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      
+      const canvas = await html2canvas(page, {
+        scale: 4, // Very high quality for professional look
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      // Calculate height according to aspect ratio to avoid stretching
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      // Center vertically if height is less than page height
+      const yOffset = imgHeight < pdfHeight ? (pdfHeight - imgHeight) / 2 : 0;
+      
+      if (i > 0) {
+        pdf.addPage();
+      }
+      
+      pdf.addImage(imgData, 'PNG', 0, yOffset, pdfWidth, imgHeight);
     }
 
     pdf.save(fileName);

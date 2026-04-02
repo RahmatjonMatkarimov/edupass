@@ -805,32 +805,50 @@ body {
   /* Bulleproof centering in flex containers */
 }
 
-/* The actual PDF Document Layout - RESTORED ORIGINAL STYLE */
-.document-a4 {
+/* The actual PDF Document Layout - DUAL COPY per A4 PAGE */
+.page-a4 {
   background: white;
   width: 210mm;
-  min-height: 100mm;
-  padding: 5mm 5mm;
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
   box-shadow: var(--shadow-lg);
+  margin-bottom: 60px;
+  transform-origin: top center;
+  transform: scale(0.8);
+  position: relative;
+}
+
+.document-a4 {
+  flex: 1;
+  padding: 8mm 10mm;
   font-family: 'Times New Roman', Times, serif;
   color: black;
   position: relative;
-  transform-origin: top center;
-  transform: scale(0.85);
-  margin-bottom: -40px;
-  border-bottom: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.cut-line {
+  height: 0;
+  border-top: 2px dashed #94a3b8;
+  width: 100%;
+  position: relative;
+  z-index: 10;
 }
 
 /* For larger displays, scale differently */
 @media (max-width: 1400px) {
-  .document-a4 {
+  .page-a4 {
     transform: scale(0.65);
     margin-bottom: -100px;
   }
 }
 
 @media (max-width: 1200px) {
-  .document-a4 {
+  .page-a4 {
     transform: scale(0.5);
     margin-bottom: -150px;
   }
@@ -935,29 +953,38 @@ body {
 .doc-table th,
 .doc-table td {
   border: 1.5px solid black;
-  padding: 4px 2px;
+  padding: 8px 4px;
   vertical-align: middle;
-  word-break: break-all;
+  word-break: break-word; /* Better for long names */
   overflow: hidden;
+}
+
+.doc-table th:first-child,
+.doc-table td:first-child {
+  width: 20%; /* More width for the name column */
 }
 
 .doc-table th {
   font-weight: normal;
+  padding: 6px 2px;
 }
 
 .doc-table .row-title {
   font-size: 16px;
+  min-height: 40px;
 }
 
 /* Custom name underline styles matching image */
 .doc-name-cell {
   position: relative;
   font-weight: normal;
+  padding: 12px 4px !important;
+  min-height: 50px;
 }
 
 .name-text {
-  font-size: 18px;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .doc-phone {
@@ -1013,29 +1040,33 @@ body {
   }
 
   /* Ensure the document renders directly without custom zooming or box-shadow */
-  .document-a4 {
+  .page-a4 {
     transform: none !important;
     margin: 0 !important;
     box-shadow: none !important;
     width: 210mm !important;
-    height: 148.5mm !important;
-    /* EXACT HALF of A4 height (297mm / 2) */
-    min-height: 148.5mm !important;
-    border-bottom: 2px dashed #94a3b8;
-    /* Cutting line between the two on same page */
-    page-break-after: auto;
+    height: 297mm !important;
+    page-break-after: always;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    overflow: hidden;
   }
 
-  .document-a4:nth-child(even) {
-    page-break-after: always;
-    /* New page starts after every 2nd ruxsatnoma */
-    border-bottom: none;
-    /* No cutting line at the end of the page */
+  .page-a4:last-child {
+    page-break-after: auto;
+  }
+
+  .document-a4 {
+    flex: 1 !important;
+    height: 148.5mm !important;
+    padding: 10mm !important;
+    border: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .cut-line {
+    border-top: 2px dashed #000 !important;
+    display: block !important;
   }
 
 
@@ -1155,9 +1186,9 @@ body {
   }
 
   /* Document Scaling for Mobile */
-  .document-a4 {
-    transform: scale(0.4) !important;
-    margin-bottom: -180px !important;
+  .page-a4 {
+    transform: scale(0.35) !important;
+    margin-bottom: -380px !important;
   }
 
   .preview-shadow-container {
@@ -1180,9 +1211,9 @@ body {
     justify-content: center !important;
   }
 
-  .document-a4 {
-    transform: scale(0.3) !important;
-    margin-bottom: -220px !important;
+  .page-a4 {
+    transform: scale(0.25) !important;
+    margin-bottom: -450px !important;
   }
 
   /* Footer */
@@ -1225,9 +1256,9 @@ body {
     font-size: 0.7rem !important;
   }
 
-  .document-a4 {
-    transform: scale(0.25) !important;
-    margin-bottom: -240px !important;
+  .page-a4 {
+    transform: scale(0.2) !important;
+    margin-bottom: -480px !important;
   }
 
   .form-column,
