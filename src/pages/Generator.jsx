@@ -39,6 +39,8 @@ const INITIAL_STUDENT = {
 
 function Generator({ theme, toggleTheme }) {
   const [students, setStudents] = useState([INITIAL_STUDENT]);
+  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
 
   const formatPhone = (val) => {
     // Remove all non-digits except '+'
@@ -100,16 +102,44 @@ function Generator({ theme, toggleTheme }) {
     }
   };
 
-  const downloadPdf = () => {
-    handleDownloadPdf('preview-content', `Ruxsatnomalar.pdf`);
+  const downloadPdf = async () => {
+    try {
+      setLoading(true);
+      setLoadingText('PDF hujjat tayyorlanmoqda...');
+      await handleDownloadPdf('preview-content', `Ruxsatnomalar.pdf`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const printPdf = () => {
-    handlePrintPdf('preview-content');
+  const printPdf = async () => {
+    try {
+      setLoading(true);
+      setLoadingText('Chop etishga tayyorlanmoqda...');
+      await handlePrintPdf('preview-content');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      // In print case, we might want to wait a bit extra to ensure 
+      // the print overlay is visible before we hide our loading state
+      setTimeout(() => setLoading(false), 500);
+    }
   };
 
   return (
     <div className="generator-page">
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner-container">
+            <div className="spinner"></div>
+            <div className="spinner-inner"></div>
+          </div>
+          <div className="loading-text">{loadingText}</div>
+          <div className="loading-subtext">Iltimos, kuting...</div>
+        </div>
+      )}
       <Helmet>
         <title>EduPass - Ruxsatnoma Generatori</title>
         <meta name="description" content="EduPass orqali o'quvchilar uchun sertifikat yoki tayyorgarlik darslari ruxsatnomasini bir necha soniyada tayyorlang." />
@@ -144,16 +174,16 @@ function Generator({ theme, toggleTheme }) {
               {theme === 'dark' ? <IconSun size={18} /> : <IconMoon size={18} />}
             </button>
             <div className="action-divider"></div>
-            <button className="btn-secondary" onClick={addStudent} aria-label="Yangi o'quvchi qo'shish">
+            <button className="btn-secondary" onClick={addStudent} disabled={loading} aria-label="Yangi o'quvchi qo'shish">
               <IconPlus size={18} />
               <span className="btn-text">Sinfga o'quvchi qo'shish</span>
             </button>
             <div className="action-divider"></div>
-            <button className="btn-success" onClick={printPdf} aria-label="Hujjatlarni chop etish">
+            <button className="btn-success" onClick={printPdf} disabled={loading} aria-label="Hujjatlarni chop etish">
               <IconPrinter size={18} />
               <span className="btn-text">Chop etish</span>
             </button>
-            <button className="btn-primary" onClick={downloadPdf} aria-label="PDF formatida yuklab olish">
+            <button className="btn-primary" onClick={downloadPdf} disabled={loading} aria-label="PDF formatida yuklab olish">
               <IconDownload size={18} />
               <span className="btn-text">PDF yuklash</span>
             </button>

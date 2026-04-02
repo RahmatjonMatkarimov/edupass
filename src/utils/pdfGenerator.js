@@ -75,16 +75,22 @@ export const handlePrintPdf = async (elementId) => {
     printFrame.src = pdfUrl;
     document.body.appendChild(printFrame);
     
-    printFrame.onload = () => {
-      setTimeout(() => {
-        printFrame.contentWindow.focus();
-        printFrame.contentWindow.print();
+    return new Promise((resolve) => {
+      printFrame.onload = () => {
         setTimeout(() => {
-          document.body.removeChild(printFrame);
-          URL.revokeObjectURL(pdfUrl);
-        }, 1000);
-      }, 100);
-    };
+          printFrame.contentWindow.focus();
+          printFrame.contentWindow.print();
+          
+          // We resolve after a small delay to ensure the print dialog is definitely "opening"
+          // although we can't perfectly detect when it's closed in all browsers without extra hacks.
+          setTimeout(() => {
+            document.body.removeChild(printFrame);
+            URL.revokeObjectURL(pdfUrl);
+            resolve();
+          }, 1000);
+        }, 200);
+      };
+    });
     
   } catch (error) {
     console.error('Error printing PDF:', error);
