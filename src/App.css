@@ -1010,9 +1010,14 @@ body {
   }
 
   /* Hide the UI Panels */
-  .header,
-  .form-panel,
-  .preview-header {
+  .generator-toolbar,
+  .form-column,
+  .column-header,
+  .main-footer,
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  footer {
     display: none !important;
   }
 
